@@ -1,0 +1,4 @@
+{
+	"mongoUri": "mongodb://root:pass@localhost:27017/",
+	"dbName": "php_login_mongodb"
+}
