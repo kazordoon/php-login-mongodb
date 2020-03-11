@@ -19,6 +19,8 @@
 			$this->db = $this->connection->$dbName;
 
 			$this->collection = $this->db->users;
+
+			// $this->collection->createIndex(['email' => 1], ['unique' => 1]);
 		}
 
 		public function getCollection() {

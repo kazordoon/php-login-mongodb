@@ -27,9 +27,18 @@
 			return;
 		}
 
-		// SUCCESS
 		$database = new Database();
 		$users = $database->getCollection();
+
+		$user = $users->findOne(['email' => $email]);
+
+		if (!empty($user)) {
+			$error = 'This email is already in use';
+			generateError($error);
+			return;
+		}
+
+		// SUCCESS
 
 		$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
