@@ -15,7 +15,7 @@
 <body>
 
 	<?php
-			if (isset($_POST['btn-register'])) {
+			if (isset($_POST['btn-login'])) {
 				require_once 'functions/login.php';
 
 				$email = $_POST['email'];
@@ -37,7 +37,7 @@
 				<input type="password" name="password" id="password" aria-label="password" placeholder="Password" required />
 			</div>
 
-			<button name="btn-register">Log In</button>
+			<button name="btn-login">Log In</button>
 			<p><small>Don't have an account ? <a href="register.php">Sign up</a></small></p>
 		</form>
 		</div>
