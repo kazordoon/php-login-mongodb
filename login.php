@@ -7,6 +7,18 @@
 	<link rel="stylesheet" href="public/css/styles.css" />
 </head>
 <body>
+
+	<?php
+			if (isset($_POST['btn-register'])) {
+				require_once 'functions/login.php';
+
+				$email = $_POST['email'];
+				$password = $_POST['password'];
+
+				login($email, $password);
+			}
+		?>
+
 	<div class="container">
 	<h1>Login</h1>
 		<form method="POST" action="" name="form-login">
@@ -20,22 +32,12 @@
 			</div>
 
 			<button name="btn-register">Log In</button>
-			<p><small>Don't have an account ? <a href="/register.php">Sign up</a></small></p>
+			<p><small>Don't have an account ? <a href="register.php">Sign up</a></small></p>
 		</form>
-
-		<?php
-			if (isset($_POST['btn-register'])) {
-				$email = $_POST['email'];
-				$password = $_POST['password'];
-
-				$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-				echo "<p>Email: $email</p>";
-			}
-		?>
 		</div>
 
 	<script src="public/js/utils/generateError"></script>
 	<script src="public/js/login.js"></script>
+	<noscript><meta http-equiv="refresh" content="0; url=noscript.html"></noscript>
 </body>
 </html>
