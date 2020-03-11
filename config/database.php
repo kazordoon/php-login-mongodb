@@ -12,7 +12,7 @@
 		public function __construct() {
 			global $dbConfig;
 
-			$this->mongoUri = $dbConfig->mongoUri . $dbConfig->dbName;
+			$this->mongoUri = $dbConfig->mongoUri;
 			$this->connection = new MongoDB\Client($this->mongoUri);
 			
 			$dbName = $dbConfig->dbName;
