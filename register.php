@@ -8,6 +8,19 @@
 	<link rel="stylesheet" href="public/css/styles.css" />
 </head>
 <body>
+	<?php
+		if (isset($_POST['btn-register'])) {
+			require_once 'functions/register.php';
+
+			$name = htmlentities($_POST['name']);
+			$email = htmlentities($_POST['email']);
+			$password = htmlentities($_POST['password']);
+			$repeatPassword = htmlentities($_POST['repeatPassword']);
+
+			register($name, $email, $password, $repeatPassword);
+		}
+	?>
+
 	<div class="container">
 	<h1>Register</h1>
 		<form method="POST" action="" name="form-register">
@@ -25,29 +38,17 @@
 			</div>
 			<div class="form-group">
 				<label for="repeatPassword"></label>
-				<input type="password" name="repeat_password" id="repeatPassword" aria-label="repeatPassword" placeholder="Repeat password" minlength="8" required />
+				<input type="password" name="repeatPassword" id="repeatPassword" aria-label="repeatPassword" placeholder="Repeat password" minlength="8" required />
 			</div>
 
 			<button name="btn-register">Register</button>
-			<p><small>Already have an account ? <a href="/login.php">Log in</a></small></p>
+			<p><small>Already have an account ? <a href="login.php">Log in</a></small></p>
 		</form>
-
-		<?php
-			if (isset($_POST['btn-register'])) {
-				$name = htmlentities($_POST['name']);
-				$email = htmlentities($_POST['email']);
-				$password = htmlentities($_POST['password']);
-
-				$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-				echo "<p>Name: $name</p>";
-				echo "<p>E-mail: $email</p>";
-			}
-		?>
 	</div>
 
 	<script src="public/js/utils/validateEmail"></script>
 	<script src="public/js/utils/generateError"></script>
 	<script src="public/js/register.js"></script>
+	<noscript><meta http-equiv="refresh" content="0; url=noscript.html"></noscript>
 </body>
 </html>
