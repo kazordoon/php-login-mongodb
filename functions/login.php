@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	require_once 'config/database.php';
 	require_once 'generateError.php';
 
@@ -29,6 +31,9 @@
 			generateError($error);
 			return;
 		}
+
+		$_SESSION['userId'] = $user['_id'];
+		$_SESSION['userName'] = $user['name'];
 
 		header('Location: index.php');
 	}
