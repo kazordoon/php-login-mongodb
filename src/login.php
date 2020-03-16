@@ -42,7 +42,7 @@
 		</form>
 		</div>
 
-	<script src="public/js/utils/generateError"></script>
+	<script src="public/js/utils/generateError.js"></script>
 	<script src="public/js/login.js"></script>
 	<noscript><meta http-equiv="refresh" content="0; url=noscript.html"></noscript>
 </body>
