@@ -66,6 +66,14 @@ div.container form p {
 	margin-top: 10px;
   font-size: 1.2em;
 }
+
+div.container p a {
+  text-decoration: none;
+}
+
+div.container p a:hover {
+  text-decoration: underline;
+}
 /* */
 
 @media screen and (max-width: 500px) {
