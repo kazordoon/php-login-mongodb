@@ -1,0 +1,2 @@
+use php_login;
+db.createUser({ user: 'php', pwd: 'phppass', roles: [ { role: 'readWrite', db: 'php_login' } ] });
