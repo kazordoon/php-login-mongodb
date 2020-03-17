@@ -5,7 +5,7 @@
 	}
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
