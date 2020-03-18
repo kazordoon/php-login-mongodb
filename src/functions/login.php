@@ -33,5 +33,5 @@
 		$_SESSION['userId'] = $user['_id'];
 		$_SESSION['userName'] = $user['name'];
 
-		header('Location: index.php');
+		echo "<script>location.href='index.php'</script>";
 	}
