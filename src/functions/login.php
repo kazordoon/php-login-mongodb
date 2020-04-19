@@ -1,11 +1,10 @@
 <?php
-	require_once 'config/database.php';
-	require_once 'generateError.php';
+	require_once 'config/Database.php';
 
 	function login($email, $password) {
 		if (empty($email) || empty($password)) {
 			$error = 'Fill in all fields';
-			generateError($error);
+			$_SESSION['error'] = $error;
 			return;
 		}
 
@@ -18,7 +17,7 @@
 
 		if (empty($user)) {
 			$error = 'User not found';
-			generateError($error);
+			$_SESSION['error'] = $error;
 			return;
 		}
 
@@ -26,12 +25,13 @@
 
 		if (!password_verify($password, $userPassword)) {
 			$error = 'Incorrect password';
-			generateError($error);
+			$_SESSION['error'] = $error;
 			return;
 		}
 
 		$_SESSION['userId'] = $user['_id'];
 		$_SESSION['userName'] = $user['name'];
 
-		echo "<script>location.href='index.php'</script>";
+		header('Location: index.php');
+		exit;
 	}

@@ -1,7 +1,18 @@
 <?php
 	session_start();
+	require_once 'functions/register.php';
+
 	if (isset($_SESSION['userId'])) {
 		header('Location: index.php');
+	}
+
+	if (isset($_POST['btn-register'])) {
+		$name = htmlentities($_POST['name']);
+		$email = htmlentities($_POST['email']);
+		$password = htmlentities($_POST['password']);
+		$repeatPassword = htmlentities($_POST['repeatPassword']);
+
+		register($name, $email, $password, $repeatPassword);
 	}
 ?>
 <!DOCTYPE html>
@@ -14,17 +25,14 @@
 	<link rel="stylesheet" href="public/css/styles.css" />
 </head>
 <body>
+
 	<?php
-		if (isset($_POST['btn-register'])) {
-			require_once 'functions/register.php';
-
-			$name = htmlentities($_POST['name']);
-			$email = htmlentities($_POST['email']);
-			$password = htmlentities($_POST['password']);
-			$repeatPassword = htmlentities($_POST['repeatPassword']);
-
-			register($name, $email, $password, $repeatPassword);
-		}
+		if (isset($_SESSION['error'])):
+	?>
+	<div class="error"><?= $_SESSION['error'] ?></div>
+	<?php
+		unset($_SESSION['error']);
+		endif;
 	?>
 
 	<div class="container">

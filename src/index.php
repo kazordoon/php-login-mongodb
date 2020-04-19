@@ -17,7 +17,9 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Hi <?php echo $_SESSION['userName']; ?></h1>
+		<h1>Hi <?= $_SESSION['userName']; ?></h1>
+		<p>Your id: <?= $_SESSION['userId'] ?></p>
+		<hr />
 		<p><a href="logout.php">Log out</a></p>
 	</div>
 </body>

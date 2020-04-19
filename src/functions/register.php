@@ -1,29 +1,29 @@
 <?php
-	require_once 'config/database.php';
-	require_once 'generateError.php';
+	require_once 'config/Database.php';
 
 	function register($name, $email, $password, $repeatPassword) {
+		// Validations
 		if (empty($name) && empty($email) && empty($password)) {
 			$error = 'Fill in all fields php';
-			generateError($error);
+			$_SESSION['error'] = $error;
 			return;
 		}
 
 		if (strlen($password) < 8) {
 			$error = 'Password must have at least 8 characters';
-			generateError($error);
+			$_SESSION['error'] = $error;
 			return;
 		}
 		
 		if ($password !== $repeatPassword) {
 			$error = "Passwords don't match";
-			generateError($error);
+			$_SESSION['error'] = $error;
 			return;
 		}
 		
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$error = 'Invalid email';
-			generateError($error);
+			$_SESSION['error'] = $error;
 			return;
 		}
 
@@ -34,7 +34,7 @@
 
 		if (!empty($user)) {
 			$error = 'This email is already in use';
-			generateError($error);
+			$_SESSION['error'] = $error;
 			return;
 		}
 
@@ -48,5 +48,6 @@
 			'password' => $hashedPassword
 		]);
 
-		echo "<script>location.href='login.php'</script>";
+		header('Location: login.php');
+		exit();
 	}

@@ -1,7 +1,16 @@
 <?php
 	session_start();
+	require_once 'functions/login.php';
+
 	if (isset($_SESSION['userId'])) {
 		header('Location: index.php');
+	}
+
+	if (isset($_POST['btn-login'])) {
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+
+		login($email, $password);
 	}
 ?>
 <!DOCTYPE html>
@@ -15,15 +24,13 @@
 <body>
 
 	<?php
-			if (isset($_POST['btn-login'])) {
-				require_once 'functions/login.php';
-
-				$email = $_POST['email'];
-				$password = $_POST['password'];
-
-				login($email, $password);
-			}
-		?>
+		if (isset($_SESSION['error'])):
+	?>
+	<div class="error"><?= $_SESSION['error'] ?></div>
+	<?php
+		unset($_SESSION['error']);
+		endif;
+	?>
 
 	<div class="container">
 	<h1>Login</h1>
