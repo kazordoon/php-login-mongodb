@@ -1,4 +1,4 @@
 {
-	"mongoUri": "mongodb://php:phppass@mongo-php:27017/php_login",
+	"mongoUri": "mongodb://php:phppass@php_login_db:27017/php_login",
 	"dbName": "php_login"
 }

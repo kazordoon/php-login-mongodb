@@ -8,7 +8,9 @@ RUN  apt update && apt install git zip unzip -y
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer
-COPY ./src /var/www/html
+COPY . /var/www/html
 WORKDIR /var/www/html
 # Installing dependencies
-RUN cd /var/www/html && composer update
+RUN cd /var/www/html && \
+    composer install
+EXPOSE 80

@@ -1,0 +1,33 @@
+version: '3'
+services:
+  web:
+    build: ./src
+    container_name: php_login_web
+    ports:
+      - '8080:80'
+    volumes:
+      - ./src:/var/www/html
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      static-network:
+        ipv4_address: 18.0.5.2
+  db:
+    image: mongo
+    container_name: php_login_db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: toor
+    ports:
+      - '27017:27017'
+    networks:
+      static-network:
+        ipv4_address: 18.0.5.3
+networks:
+  static-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 18.0.5.0/16
