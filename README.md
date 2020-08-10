@@ -9,17 +9,13 @@ Login with PHP and MongoDB.
 
 ### Prerequisites
 - Docker
-
-### Build images
-- MongoDB: `docker build -t mongo-php src/database`
-- PHP: `docker build -t php-login .`
+- Docker Compose
 
 ### Run containers
-- MongoDB: `docker run --name mongo-php -p 27017:27017 -d mongo-php`
-- PHP: `docker run --name php-login -p 8080:80 -v src:/var/www/html --link mongo-php -d php-login`
+- `docker-composer up -d`
 
-### Create an user into MongoDB
-`docker exec -i mongo-php mongo -u root -p toor < src/database/script`
+### Run the MongoDB script
+- `docker exec -i php_login_db mongo -u root -p toor < src/database/script`
 
 ## Versioning
 
