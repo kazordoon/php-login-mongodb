@@ -37,13 +37,13 @@ class RegistrationController extends Controller {
 
       $areTheFieldsEmpty = empty($name) && empty($email) && empty($password);
       if ($areTheFieldsEmpty) {
-        $_SESSION['error'] = 'Fill in all fields php';;
+        $_SESSION['error'] = 'Fill in all fields.';
         redirectTo(BASE_URL . 'register');
       }
 
       $hasAnInvalidPasswordLength = UserValidator::hasAValidPasswordLength($password);
       if ($hasAnInvalidPasswordLength) {
-        $_SESSION['error'] = 'Password must have at least 8 characters';;
+        $_SESSION['error'] = 'The password must have between 8 and 50 characters.';
         redirectTo(BASE_URL . 'register');
       }
 
@@ -52,13 +52,13 @@ class RegistrationController extends Controller {
         $repeatPassword
       );
       if ($passwordsAreDifferent) {
-        $_SESSION['error'] = "Passwords don't match";
+        $_SESSION['error'] = "The passwords don't match.";
         redirectTo(BASE_URL . 'register');
       }
 
       $isAnInvalidEmail = !UserValidator::isAValidEmail($email);
       if ($isAnInvalidEmail) {
-        $_SESSION['error'] = 'Invalid email';;
+        $_SESSION['error'] = 'The provided email has an invalid format.';
         redirectTo(BASE_URL . 'register');
       }
 
