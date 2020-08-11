@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\User;
+use App\Validators\UserValidator;
 
 class RegistrationController extends Controller {
   public function index() {
@@ -40,17 +41,23 @@ class RegistrationController extends Controller {
         redirectTo(BASE_URL . 'login');
       }
 
-      if (strlen($password) < 8) {
+      $hasAnInvalidPasswordLength = UserValidator::hasAValidPasswordLength($password);
+      if ($hasAnInvalidPasswordLength) {
         $_SESSION['error'] = 'Password must have at least 8 characters';;
         redirectTo(BASE_URL . 'login');
       }
 
-      if ($password !== $repeatPassword) {
+      $passwordsAreDifferent = !UserValidator::areThePasswordsTheSame(
+        $password,
+        $repeatPassword
+      );
+      if ($passwordsAreDifferent) {
         $_SESSION['error'] = "Passwords don't match";
         redirectTo(BASE_URL . 'login');
       }
 
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $isAnInvalidEmail = !UserValidator::isAValidEmail($email);
+      if ($isAnInvalidEmail) {
         $_SESSION['error'] = 'Invalid email';;
         redirectTo(BASE_URL . 'login');
       }
