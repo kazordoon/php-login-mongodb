@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    build: ./src
+    build: .
     container_name: php_login_web
     ports:
       - '8080:80'

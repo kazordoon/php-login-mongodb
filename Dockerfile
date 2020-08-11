@@ -8,7 +8,8 @@ RUN  apt update && apt install git zip unzip -y
 RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer
-COPY . /var/www/html
+COPY ./src /var/www/html
+COPY ./apache/000-default.conf /etc/apache2/sites-available
 WORKDIR /var/www/html
 # Enable the rewrite mod on apache
 RUN a2enmod rewrite && \
