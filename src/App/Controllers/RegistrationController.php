@@ -38,13 +38,13 @@ class RegistrationController extends Controller {
       $areTheFieldsEmpty = empty($name) && empty($email) && empty($password);
       if ($areTheFieldsEmpty) {
         $_SESSION['error'] = 'Fill in all fields php';;
-        redirectTo(BASE_URL . 'login');
+        redirectTo(BASE_URL . 'register');
       }
 
       $hasAnInvalidPasswordLength = UserValidator::hasAValidPasswordLength($password);
       if ($hasAnInvalidPasswordLength) {
         $_SESSION['error'] = 'Password must have at least 8 characters';;
-        redirectTo(BASE_URL . 'login');
+        redirectTo(BASE_URL . 'register');
       }
 
       $passwordsAreDifferent = !UserValidator::areThePasswordsTheSame(
@@ -53,13 +53,13 @@ class RegistrationController extends Controller {
       );
       if ($passwordsAreDifferent) {
         $_SESSION['error'] = "Passwords don't match";
-        redirectTo(BASE_URL . 'login');
+        redirectTo(BASE_URL . 'register');
       }
 
       $isAnInvalidEmail = !UserValidator::isAValidEmail($email);
       if ($isAnInvalidEmail) {
         $_SESSION['error'] = 'Invalid email';;
-        redirectTo(BASE_URL . 'login');
+        redirectTo(BASE_URL . 'register');
       }
 
       $user = User::findBy(['email' => $email]);
@@ -67,7 +67,7 @@ class RegistrationController extends Controller {
       $userAlreadyExists = !empty($user);
       if ($userAlreadyExists) {
         $_SESSION['error'] = 'This email is already in use.';
-        redirectTo(BASE_URL . 'login');
+        redirectTo(BASE_URL . 'register');
       }
 
 
