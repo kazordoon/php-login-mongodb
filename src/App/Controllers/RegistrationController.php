@@ -36,40 +36,30 @@ class RegistrationController extends Controller {
 
       // Validations
       if (empty($name) && empty($email) && empty($password)) {
-        $error = 'Fill in all fields php';
-        $_SESSION['error'] = $error;
-        header('Location: ' . BASE_URL . 'login');
-        exit;
+        $_SESSION['error'] = 'Fill in all fields php';;
+        redirectTo(BASE_URL . 'login');
       }
 
       if (strlen($password) < 8) {
-        $error = 'Password must have at least 8 characters';
-        $_SESSION['error'] = $error;
-        header('Location: ' . BASE_URL . 'login');
-        exit;
+        $_SESSION['error'] = 'Password must have at least 8 characters';;
+        redirectTo(BASE_URL . 'login');
       }
 
       if ($password !== $repeatPassword) {
-        $error = "Passwords don't match";
-        $_SESSION['error'] = $error;
-        header('Location: ' . BASE_URL . 'login');
-        exit;
+        $_SESSION['error'] = "Passwords don't match";
+        redirectTo(BASE_URL . 'login');
       }
 
       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Invalid email';
-        $_SESSION['error'] = $error;
-        header('Location: ' . BASE_URL . 'login');
-        exit;
+        $_SESSION['error'] = 'Invalid email';;
+        redirectTo(BASE_URL . 'login');
       }
 
       $user = User::findBy(['email' => $email]);
 
       if (!empty($user)) {
-        $error = 'This email is already in use';
-        $_SESSION['error'] = $error;
-        header('Location: ' . BASE_URL . 'login');
-        exit;
+        $_SESSION['error'] = 'This email is already in use.';
+        redirectTo(BASE_URL . 'login');
       }
 
       // SUCCESS

@@ -8,7 +8,8 @@
       "App\\Controllers\\": "App/Controllers/",
       "App\\Core\\": "App/Core/",
       "App\\Database\\": "App/Database/"
-    }
+    },
+    "files": ["utils/redirectTo.php"]
   },
   "require": {
     "coffeecode/router": "^1.0",

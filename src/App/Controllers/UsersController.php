@@ -12,8 +12,7 @@ class UsersController extends Controller {
     $userId = $_SESSION['userId'] ?? null;
 
     if (!$userId) {
-      header('Location: ' . BASE_URL . 'login');
-      exit;
+      redirectTo(BASE_URL . 'login');
     }
 
     $user = User::findById($userId);
