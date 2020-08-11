@@ -16,8 +16,7 @@ class UsersController extends Controller {
       exit;
     }
 
-    $user = new User;
-    $user = $user->findById($userId);
+    $user = User::findById($userId);
 
     $data = [
       'user' => [

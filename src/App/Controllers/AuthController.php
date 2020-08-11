@@ -39,8 +39,7 @@ class AuthController extends Controller {
         exit;
       }
 
-      $userModel = new User;
-      [$user] = $userModel->findBy(['email' => $email]);
+      [$user] = User::findBy(['email' => $email]);
 
       if (empty($user)) {
         $error = 'User not found';

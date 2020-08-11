@@ -7,24 +7,22 @@ use MongoDB\Collection;
 use MongoDB\BSON\ObjectId;
 
 abstract class Model {
-  protected Collection $collection;
-  protected string $collectionName;
+  protected static Collection $collection;
 
-  public function __construct(MongoClient $mongoClient) {
+  public static function loadClient(MongoClient $mongoClient, string $collectionName) {
     $dbName = DB_NAME;
-    $collectionName = $this->collectionName;
     $db = $mongoClient->$dbName;
-    $this->collection = $db->$collectionName;
+    self::$collection = $db->$collectionName;
   }
 
-  public function findById(string $id) {
-    $document = $this->collection->findOne(['_id' => new ObjectId($id)]);
+  public static function findById(string $id) {
+    $document = self::$collection->findOne(['_id' => new ObjectId($id)]);
     return $document;
   }
 
-  public function findBy(array $filter) {
+  public static function findBy(array $filter) {
     $documents = [];
-    $query = $this->collection->find($filter);
+    $query = self::$collection->find($filter);
 
     foreach ($query as $document) {
       $documents[] = $document;
@@ -33,8 +31,8 @@ abstract class Model {
     return $documents;
   }
 
-  public function create($fields) {
-    $data = $this->collection->insertOne($fields);
+  public static function create(array $fields) {
+    $data = self::$collection->insertOne($fields);
 
     return $data->getInsertedId();
   }

@@ -63,8 +63,7 @@ class RegistrationController extends Controller {
         exit;
       }
 
-      $userModel = new User;
-      $user = $userModel->findBy(['email' => $email]);
+      $user = User::findBy(['email' => $email]);
 
       if (!empty($user)) {
         $error = 'This email is already in use';
@@ -77,7 +76,7 @@ class RegistrationController extends Controller {
 
       $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-      $userModel->create([
+      User::create([
         'name' => $name,
         'email' => $email,
         'password' => $hashedPassword
