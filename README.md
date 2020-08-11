@@ -14,8 +14,8 @@ Login with PHP and MongoDB.
 ### Run containers
 - `docker-composer up -d`
 
-### Run the MongoDB script
-- `docker exec -i php_login_db mongo -u root -p toor < src/database/script`
+### Run the script to prepare the MongoDB
+- `./src/config/script.sh`
 
 ## Versioning
 
