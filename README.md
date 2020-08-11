@@ -1,6 +1,6 @@
 
 # php-login-mongodb
-Login with PHP and MongoDB.
+Login with PHP using MongoDB as database.
 
 ## Getting Started
 
