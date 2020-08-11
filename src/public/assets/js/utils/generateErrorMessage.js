@@ -1,4 +1,4 @@
-window.generateErrorMessage = function generateErrorMessage(errors) {
+export default function generateErrorMessage(errors) {
 	let divError = document.querySelector('div.error');
 	if (divError) {
 		divError.remove();

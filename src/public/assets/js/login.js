@@ -1,3 +1,5 @@
+import { generateErrorMessage } from './utils/index.js';
+
 (function() {
 	const form = document.forms['form-login'];
 
@@ -15,6 +17,5 @@
 			generateErrorMessage(errors);
 			event.preventDefault();
 		}
-		
 	});
 })();

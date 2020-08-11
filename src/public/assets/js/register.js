@@ -1,3 +1,8 @@
+import {
+  generateErrorMessage,
+  validateEmail,
+} from './utils/index.js';
+
 (function() {
 	const form = document.forms['form-register'];
 
@@ -30,6 +35,6 @@
 			generateErrorMessage(errors);
 			event.preventDefault();
 		}
-		
+
 	});
 })();
