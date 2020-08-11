@@ -32,19 +32,22 @@ class AuthController extends Controller {
       $email = $_POST['email'];
       $password = $_POST['password'];
 
-      if (empty($email) || empty($password)) {
+      $areTheFieldsEmpty = empty($email) || empty($password);
+      if ($areTheFieldsEmpty) {
         $_SESSION['error'] = 'Fill in all fields';
         redirectTo(BASE_URL . 'login');
       }
 
       [$user] = User::findBy(['email' => $email]);
 
-      if (empty($user)) {
+      $userNotFound = empty($user);
+      if ($userNotFound) {
         $_SESSION['error'] = 'User not found';
         redirectTo(BASE_URL . 'login');
       }
 
-      if (!password_verify($password, $user['password'])) {
+      $isThePasswordIncorrect = !password_verify($password, $user['password']);
+      if ($isThePasswordIncorrect) {
         $_SESSION['error'] = 'Incorrect password';
         redirectTo(BASE_URL . 'login');
       }

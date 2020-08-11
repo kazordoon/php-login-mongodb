@@ -35,8 +35,8 @@ class RegistrationController extends Controller {
       $password = htmlentities($_POST['password']);
       $repeatPassword = htmlentities($_POST['repeatPassword']);
 
-      // Validations
-      if (empty($name) && empty($email) && empty($password)) {
+      $areTheFieldsEmpty = empty($name) && empty($email) && empty($password);
+      if ($areTheFieldsEmpty) {
         $_SESSION['error'] = 'Fill in all fields php';;
         redirectTo(BASE_URL . 'login');
       }
@@ -64,15 +64,14 @@ class RegistrationController extends Controller {
 
       $user = User::findBy(['email' => $email]);
 
-      if (!empty($user)) {
+      $userAlreadyExists = !empty($user);
+      if ($userAlreadyExists) {
         $_SESSION['error'] = 'This email is already in use.';
         redirectTo(BASE_URL . 'login');
       }
 
-      // SUCCESS
 
       $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
       User::create([
         'name' => $name,
         'email' => $email,
