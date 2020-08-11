@@ -1,20 +1,3 @@
-<?php
-	session_start();
-	require_once 'functions/register.php';
-
-	if (isset($_SESSION['userId'])) {
-		header('Location: index.php');
-	}
-
-	if (isset($_POST['btn-register'])) {
-		$name = htmlentities($_POST['name']);
-		$email = htmlentities($_POST['email']);
-		$password = htmlentities($_POST['password']);
-		$repeatPassword = htmlentities($_POST['repeatPassword']);
-
-		register($name, $email, $password, $repeatPassword);
-	}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,18 +5,13 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Register</title>
-	<link rel="stylesheet" href="public/css/styles.css" />
+	<link rel="stylesheet" href="{{ constant('BASE_URL') }}assets/css/styles.css" />
 </head>
 <body>
 
-	<?php
-		if (isset($_SESSION['error'])):
-	?>
-	<div class="error"><?= $_SESSION['error'] ?></div>
-	<?php
-		unset($_SESSION['error']);
-		endif;
-	?>
+	{% if error %}
+  <div class="error">{{ error }}</div>
+  {% endif %}
 
 	<div class="container">
 	<h1>Register</h1>
@@ -60,9 +38,8 @@
 		</form>
 	</div>
 
-	<script src="public/js/utils/validateEmail.js"></script>
-	<script src="public/js/utils/generateError.js"></script>
-	<script src="public/js/register.js"></script>
-	<noscript><meta http-equiv="refresh" content="0; url=noscript.html"></noscript>
+	<script src="{{ constant('BASE_URL') }}assets/js/utils/validateEmail.js"></script>
+	<script src="{{ constant('BASE_URL') }}assets/js/utils/generateError.js"></script>
+	<script src="{{ constant('BASE_URL') }}assets/js/register.js"></script>
 </body>
 </html>
