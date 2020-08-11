@@ -41,7 +41,7 @@ class RegistrationController extends Controller {
         redirectTo(BASE_URL . 'register');
       }
 
-      $hasAnInvalidPasswordLength = UserValidator::hasAValidPasswordLength($password);
+      $hasAnInvalidPasswordLength = !UserValidator::hasAValidPasswordLength($password);
       if ($hasAnInvalidPasswordLength) {
         $_SESSION['error'] = 'The password must have between 8 and 50 characters.';
         redirectTo(BASE_URL . 'register');
