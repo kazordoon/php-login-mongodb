@@ -7,7 +7,7 @@ import generateErrorMessage from './utils/generateErrorMessage.js';
     const errors = [];
 
     const password = document.querySelector('#password').value;
-    const repeatedPassword = document.querySelector('#repeatPassword').value;
+    const repeatedPassword = document.querySelector('#repeatedPassword').value;
 
     const inputs = document.querySelectorAll(
       'form[name=form-reset-password] input'

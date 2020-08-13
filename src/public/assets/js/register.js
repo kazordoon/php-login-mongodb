@@ -19,7 +19,7 @@ import UserValidator from './validators/UserValidator.js';
 
     const email = document.querySelector('#email').value;
     const password = document.querySelector('#password').value;
-    const repeatPassword = document.querySelector('#repeatPassword').value;
+    const repeatedPassword = document.querySelector('#repeatedPassword').value;
 
     const invalidEmail = !UserValidator.isAValidEmail(email);
     if (invalidEmail) {
@@ -28,7 +28,7 @@ import UserValidator from './validators/UserValidator.js';
 
     const passwordsAreDifferent = !UserValidator.areThePasswordsTheSame(
       password,
-      repeatPassword
+      repeatedPassword
     );
     if (passwordsAreDifferent) {
       errors.push("Passwords don't match");
