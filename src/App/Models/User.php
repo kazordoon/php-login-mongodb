@@ -22,6 +22,11 @@ class User extends Model {
   public static function getCollection() {
     return self::$collection;
   }
+
+  public static function findByEmail(string $email) {
+    $user = self::getCollection()->findOne(['email' => $email]);
+    return $user;
+  }
 }
 
 User::loadModel();
