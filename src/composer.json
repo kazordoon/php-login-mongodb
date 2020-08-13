@@ -13,7 +13,8 @@
     },
     "files": [
       "utils/redirectTo.php",
-      "utils/clearSessionMessages.php"
+      "utils/clearSessionMessages.php",
+      "utils/generateToken.php"
     ]
   },
   "require": {
