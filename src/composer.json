@@ -11,7 +11,10 @@
       "App\\Validators\\": "App/Validators/",
       "App\\Providers\\": "Providers/"
     },
-    "files": ["utils/redirectTo.php"]
+    "files": [
+      "utils/redirectTo.php",
+      "utils/clearSessionMessages.php"
+    ]
   },
   "require": {
     "coffeecode/router": "^1.0",
