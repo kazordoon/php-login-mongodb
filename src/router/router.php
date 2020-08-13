@@ -19,6 +19,9 @@ $router->post('/register', 'RegistrationController:store');
 $router->get('/recover_password', 'RecoverPassword:index');
 $router->post('/recover_password', 'RecoverPassword:sendRecoveryToken');
 
+$router->get('/reset_password', 'ResetPasswordController:index');
+$router->post('/reset_password', 'ResetPasswordController:reset');
+
 $router->dispatch();
 
 if ($router->error()) {
