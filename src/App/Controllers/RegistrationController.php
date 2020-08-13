@@ -21,9 +21,7 @@ class RegistrationController extends Controller {
       'error' => $error
     ];
 
-    if ($error) {
-      unset($_SESSION['error']);
-    }
+    clearSessionMessages();
 
     return $this->render('register', $data);
   }

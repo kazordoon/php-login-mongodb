@@ -22,11 +22,7 @@ class AuthController extends Controller {
       'error' => $error
     ];
 
-    if ($error) {
-      unset($_SESSION['error']);
-    } elseif ($success) {
-      unset($_SESSION['success']);
-    }
+    clearSessionMessages();
 
     return $this->render('login', $data);
   }

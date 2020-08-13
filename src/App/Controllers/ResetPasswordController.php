@@ -40,9 +40,7 @@ class ResetPasswordController extends Controller {
       'error' => $error
     ];
 
-    if ($error) {
-      unset($_SESSION['error']);
-    }
+    clearSessionMessages();
 
     $this->render('reset_password', $data);
   }

@@ -24,11 +24,7 @@ class RecoverPasswordController extends Controller {
       'success' => $success
     ];
 
-    if ($error) {
-      unset($_SESSION['error']);
-    } elseif ($success) {
-      unset($_SESSION['success']);
-    }
+    clearSessionMessages();
 
     return $this->render('recover_password', $data);
   }
