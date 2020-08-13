@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\User;
+use App\Validators\UserValidator;
 
 class ResetPasswordController extends Controller {
   public function index() {
@@ -33,6 +34,8 @@ class ResetPasswordController extends Controller {
       redirectTo(BASE_URL . 'recover_password');
     }
 
+    $_SESSION['userId'] = $user['_id'];
+
     $data = [
       'error' => $error
     ];
@@ -44,5 +47,34 @@ class ResetPasswordController extends Controller {
     $this->render('reset_password', $data);
   }
 
-  public function reset() {}
+  public function reset() {
+    $userId = $_SESSION['userId'] ?? null;
+
+    $password = filter_input(INPUT_POST, 'password');
+    $repeatedPassword = filter_input(INPUT_POST, 'repeatPassword');
+
+    $passwordsAreDifferent = !UserValidator::areThePasswordsTheSame(
+      $password,
+      $repeatedPassword
+    );
+    if ($passwordsAreDifferent) {
+      $_SESSION['error'] = "The passwords don't match.";
+      redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
+    }
+
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    User::findByIdAndUpdate($userId, [
+      'password' => $hashedPassword
+    ]);
+
+    User::findByIdAndUpdate($userId, [
+      'passwordRecoveryToken' => null,
+      'passwordTokenExpirationTime' => null
+    ]);
+
+    unset($_SESSION['userId']);
+
+    $_SESSION['success'] = 'Your password has been updated.';
+    redirectTo(BASE_URL);
+  }
 }
