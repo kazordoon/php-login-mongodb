@@ -45,7 +45,7 @@ class RecoverPasswordController extends Controller {
       redirectTo(BASE_URL . 'recover_password');
     }
 
-    $passwordRecoveryToken = uniqid(bin2hex(random_bytes(32)));
+    $passwordRecoveryToken = generateToken();
     $oneHour = time() + 3600;
     $passwordTokenExpirationTime = $oneHour;
 
