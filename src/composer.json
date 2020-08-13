@@ -8,7 +8,8 @@
       "App\\Controllers\\": "App/Controllers/",
       "App\\Core\\": "App/Core/",
       "App\\Database\\": "App/Database/",
-      "App\\Validators\\": "App/Validators/"
+      "App\\Validators\\": "App/Validators/",
+      "App\\Providers\\": "Providers/"
     },
     "files": ["utils/redirectTo.php"]
   },
