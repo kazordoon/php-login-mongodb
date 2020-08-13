@@ -49,7 +49,7 @@ class ResetPasswordController extends Controller {
     $userId = $_SESSION['userId'] ?? null;
 
     $password = filter_input(INPUT_POST, 'password');
-    $repeatedPassword = filter_input(INPUT_POST, 'repeatPassword');
+    $repeatedPassword = filter_input(INPUT_POST, 'repeatedPassword');
 
     $hasAnInvalidPasswordLength = !UserValidator::hasAValidPasswordLength($password);
     if ($hasAnInvalidPasswordLength) {

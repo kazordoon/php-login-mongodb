@@ -30,7 +30,7 @@ class RegistrationController extends Controller {
       $name = htmlentities($_POST['name']);
       $email = htmlentities($_POST['email']);
       $password = htmlentities($_POST['password']);
-      $repeatPassword = htmlentities($_POST['repeatPassword']);
+      $repeatedPassword = htmlentities($_POST['repeatedPassword']);
 
       $areTheFieldsEmpty = empty($name) && empty($email) && empty($password);
       if ($areTheFieldsEmpty) {
@@ -46,7 +46,7 @@ class RegistrationController extends Controller {
 
       $passwordsAreDifferent = !UserValidator::areThePasswordsTheSame(
         $password,
-        $repeatPassword
+        $repeatedPassword
       );
       if ($passwordsAreDifferent) {
         $_SESSION['error'] = "The passwords don't match.";
