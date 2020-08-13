@@ -2,7 +2,7 @@
 
 use App\Core\Controller;
 
-class RecoverPassword extends Controller {
+class RecoverPasswordController extends Controller {
   public function index() {}
 
   public function sendRecoveryToken() {}
