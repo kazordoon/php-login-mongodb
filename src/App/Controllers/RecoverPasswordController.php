@@ -12,8 +12,7 @@ class RecoverPasswordController extends Controller {
     $isTheUserLoggedIn = isset($_SESSION['userId']);
 
     if ($isTheUserLoggedIn) {
-      header('Location: ' . BASE_URL);
-      exit;
+      redirectTo(BASE_URL);
     }
 
     $error = $_SESSION['error'] ?? null;

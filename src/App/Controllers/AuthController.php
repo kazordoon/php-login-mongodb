@@ -54,8 +54,7 @@ class AuthController extends Controller {
 
       $_SESSION['userId'] = $user['_id'];
 
-      header('Location: ' . BASE_URL);
-      exit;
+      redirectTo(BASE_URL);
     }
   }
 }
