@@ -42,7 +42,7 @@ class AuthController extends Controller {
         redirectTo(BASE_URL . 'login');
       }
 
-      [$user] = User::findBy(['email' => $email]);
+      $user = User::findByEmail($email);
 
       $userNotFound = empty($user);
       if ($userNotFound) {

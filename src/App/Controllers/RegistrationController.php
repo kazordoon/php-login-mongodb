@@ -62,7 +62,7 @@ class RegistrationController extends Controller {
         redirectTo(BASE_URL . 'register');
       }
 
-      $user = User::findBy(['email' => $email]);
+      $user = User::findByEmail($email);
 
       $userAlreadyExists = !empty($user);
       if ($userAlreadyExists) {

@@ -42,7 +42,7 @@ class RecoverPasswordController extends Controller {
       redirectTo(BASE_URL . 'recover_password');
     }
 
-    [$user] = User::findBy(['email' => $email]);
+    $user = User::findByEmail($email);
 
     $userNotFound = !$user;
     if ($userNotFound) {

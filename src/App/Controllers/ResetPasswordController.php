@@ -13,7 +13,7 @@ class ResetPasswordController extends Controller {
     $email = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);
     $passwordRecoveryToken = filter_input(INPUT_GET, 'token');
 
-    [$user] = User::findBy(['email' => $email]);
+    $user = User::findByEmail($email);
 
     $userNotFound = !$user;
     if ($userNotFound) {
