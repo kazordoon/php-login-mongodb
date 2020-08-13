@@ -19,8 +19,8 @@ class User extends Model {
     parent::loadClient($client, $collectionName);
   }
 
-  public function getCollection() {
-    return $this->collection;
+  public static function getCollection() {
+    return self::$collection;
   }
 }
 
