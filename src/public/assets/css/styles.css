@@ -12,7 +12,7 @@ body {
 	background-color: #e1e1e1;
 }
 
-div.error {
+.error {
 	width: 500px;
 	background-color: #f56;
 	text-align: center;
@@ -20,20 +20,28 @@ div.error {
 	padding: 10px;
 }
 
-div.container {
+.success {
+  width: 500px;
+	background-color: #45ff45;
+	text-align: center;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+.container {
 	margin: 10px auto;
 	text-align: center;
 	width: 90%;
 }
 
-div.container h1 {
+.container h1 {
 	color: #333;
 	text-align: center;
 	margin-bottom: 10px;
 }
 
 /* Form */
-div.container form input {
+.container form input {
 	height: 48px;
 	width: 500px;
 	max-width: 900px;
@@ -42,7 +50,7 @@ div.container form input {
 	border-radius: 20px;
 }
 
-div.container form button {
+.container form button {
 	height: 48px;
 	padding: 10px;
 	font-size: 1.2em;
@@ -54,34 +62,38 @@ div.container form button {
 	background-color: #555;
 }
 
-div.container form button:hover {
+.container form button:hover {
 	background-color: #333;
 }
 
-div.form-group {
+.form-group {
 	margin-bottom: 20px;
 }
 
-div.container form p {
+.container form p {
 	margin-top: 10px;
   font-size: 1.2em;
 }
 
-div.container p a {
+.container p a {
   text-decoration: none;
 }
 
-div.container p a:hover {
+.container p a:hover {
   text-decoration: underline;
 }
 /* */
 
 @media screen and (max-width: 500px) {
-	div.container form input {
+	.container form input {
 		width: 100%;
 	}
 
-	div.error {
+	.error {
 		width: 100%;
-	}
+  }
+
+  .success {
+    width: 100%;
+  }
 }
