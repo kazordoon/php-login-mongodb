@@ -16,6 +16,9 @@ $router->get('/logout', 'LogOutController:index');
 $router->get('/register', 'RegistrationController:index');
 $router->post('/register', 'RegistrationController:store');
 
+$router->get('/recover_password', 'RecoverPassword:index');
+$router->post('/recover_password', 'RecoverPassword:sendRecoveryToken');
+
 $router->dispatch();
 
 if ($router->error()) {
