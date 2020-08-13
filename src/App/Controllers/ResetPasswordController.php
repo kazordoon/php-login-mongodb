@@ -53,6 +53,12 @@ class ResetPasswordController extends Controller {
     $password = filter_input(INPUT_POST, 'password');
     $repeatedPassword = filter_input(INPUT_POST, 'repeatPassword');
 
+    $hasAnInvalidPasswordLength = !UserValidator::hasAValidPasswordLength($password);
+    if ($hasAnInvalidPasswordLength) {
+      $_SESSION['error'] = 'The password must have between 8 and 50 characters.';
+      redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
+    }
+
     $passwordsAreDifferent = !UserValidator::areThePasswordsTheSame(
       $password,
       $repeatedPassword
