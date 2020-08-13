@@ -17,13 +17,17 @@ class RecoverPasswordController extends Controller {
     }
 
     $error = $_SESSION['error'] ?? null;
+    $success = $_SESSION['success'] ?? null;
 
     $data = [
-      'error' => $error
+      'error' => $error,
+      'success' => $success
     ];
 
     if ($error) {
       unset($_SESSION['error']);
+    } elseif ($success) {
+      unset($_SESSION['success']);
     }
 
     return $this->render('recover_password', $data);
@@ -63,9 +67,11 @@ class RecoverPasswordController extends Controller {
 
     try {
       $mail->send();
+      $_SESSION['success'] = 'An email message with the password recovery link has been sent to your email.';
     } catch (Exception $e) {
       $_SESSION['error'] = 'Could not to send a password recovery link via email, try again.';
-      redirectTo(BASE_URL . 'recover_password');
     }
+
+    redirectTo(BASE_URL . 'recover_password');
   }
 }
