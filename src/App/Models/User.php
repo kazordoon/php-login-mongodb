@@ -10,6 +10,8 @@ class User extends Model {
   public string $name;
   public string $email;
   public string $password;
+  public int $passwordTokenExpirationTime;
+  public string $passwordRecoveryToken;
 
   public static function loadModel() {
     $collectionName = 'users';
