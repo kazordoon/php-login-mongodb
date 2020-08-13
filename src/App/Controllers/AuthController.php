@@ -8,6 +8,7 @@ use App\Models\User;
 class AuthController extends Controller {
   public function index() {
     $isTheUserLoggedIn = isset($_SESSION['userId']);
+    $success = $_SESSION['success'] ?? null;
 
     if ($isTheUserLoggedIn) {
       header('Location: ' . BASE_URL);
@@ -17,11 +18,14 @@ class AuthController extends Controller {
     $error = $_SESSION['error'] ?? null;
 
     $data = [
+      'success' => $success,
       'error' => $error
     ];
 
     if ($error) {
       unset($_SESSION['error']);
+    } elseif ($success) {
+      unset($_SESSION['success']);
     }
 
     return $this->render('login', $data);
