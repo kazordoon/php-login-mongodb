@@ -1,9 +1,9 @@
-import { generateErrorMessage } from './utils/index.js';
+import generateErrorMessage from './utils/generateErrorMessage.js';
 
 (function () {
   const form = document.forms['form-reset-password'];
 
-  form.addEventListener('submit', function (event) {
+  form.addEventListener('submit', function(event) {
     const errors = [];
 
     const password = document.querySelector('#password').value;
