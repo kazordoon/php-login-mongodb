@@ -36,4 +36,13 @@ abstract class Model {
 
     return $data->getInsertedId();
   }
+
+  public static function findByIdAndUpdate(string $id, array $fields) {
+    self::$collection->updateOne(
+      ['_id' => new ObjectId($id)],
+      ['$set' => $fields]
+    );
+
+    return true;
+  }
 }
