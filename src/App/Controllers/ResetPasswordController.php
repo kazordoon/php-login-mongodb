@@ -34,7 +34,7 @@ class ResetPasswordController extends Controller {
       redirectTo(BASE_URL . 'recover_password');
     }
 
-    $_SESSION['userId'] = $user['_id'];
+    $_SESSION['userIdToResetPass'] = $user['_id'];
 
     $data = [
       'error' => $error
@@ -46,7 +46,7 @@ class ResetPasswordController extends Controller {
   }
 
   public function reset() {
-    $userId = $_SESSION['userId'] ?? null;
+    $userId = $_SESSION['userIdToResetPass'] ?? null;
 
     $password = filter_input(INPUT_POST, 'password');
     $repeatedPassword = filter_input(INPUT_POST, 'repeatedPassword');
