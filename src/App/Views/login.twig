@@ -28,6 +28,7 @@
         <input type="password" name="password" id="password" aria-label="password" placeholder="Password" required />
       </div>
 
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}" required />
       <button type="submit" name="btn-login">Log In</button>
       <p><small>Don't have an account ? <a href="{{ constant('BASE_URL') }}register">Sign up.</a></small></p>
       <p><small>Forgot your password ? <a href="{{ constant('BASE_URL') }}recover_password">Recover it here.</a></small></p>

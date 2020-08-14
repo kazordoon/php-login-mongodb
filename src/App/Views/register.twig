@@ -35,6 +35,7 @@
 					placeholder="Repeat password" minlength="8" maxlength="50" required />
 			</div>
 
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}" required />
 			<button type="submit" name="btn-register">Register</button>
 			<p><small>Already have an account ? <a href="login.php">Log in</a></small></p>
 		</form>

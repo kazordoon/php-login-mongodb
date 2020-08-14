@@ -16,8 +16,12 @@ class RegistrationController extends Controller {
 
     $error = $_SESSION['error'] ?? null;
 
+    $csrfToken = generateToken();
+    $_SESSION['csrfToken'] = $csrfToken;
+
     $data = [
-      'error' => $error
+      'error' => $error,
+      'csrfToken' => $csrfToken
     ];
 
     clearSessionMessages();
@@ -26,7 +30,8 @@ class RegistrationController extends Controller {
   }
 
   public function store() {
-    if (isset($_POST['btn-register'])) {
+    $validCsrfToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    if ($validCsrfToken) {
       $name = htmlentities($_POST['name']);
       $email = htmlentities($_POST['email']);
       $password = htmlentities($_POST['password']);

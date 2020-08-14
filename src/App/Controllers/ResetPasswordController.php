@@ -36,8 +36,12 @@ class ResetPasswordController extends Controller {
 
     $_SESSION['userIdToResetPass'] = $user['_id'];
 
+    $csrfToken = generateToken();
+    $_SESSION['csrfToken'] = $csrfToken;
+
     $data = [
-      'error' => $error
+      'error' => $error,
+      'csrfToken' => $csrfToken
     ];
 
     clearSessionMessages();
@@ -46,39 +50,42 @@ class ResetPasswordController extends Controller {
   }
 
   public function reset() {
-    $userId = $_SESSION['userIdToResetPass'] ?? null;
+    $validCsrfToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    if ($validCsrfToken) {
+      $userId = $_SESSION['userIdToResetPass'] ?? null;
 
-    $password = filter_input(INPUT_POST, 'password');
-    $repeatedPassword = filter_input(INPUT_POST, 'repeatedPassword');
+      $password = filter_input(INPUT_POST, 'password');
+      $repeatedPassword = filter_input(INPUT_POST, 'repeatedPassword');
 
-    $hasAnInvalidPasswordLength = !UserValidator::hasAValidPasswordLength($password);
-    if ($hasAnInvalidPasswordLength) {
-      $_SESSION['error'] = 'The password must have between 8 and 50 characters.';
-      redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
+      $hasAnInvalidPasswordLength = !UserValidator::hasAValidPasswordLength($password);
+      if ($hasAnInvalidPasswordLength) {
+        $_SESSION['error'] = 'The password must have between 8 and 50 characters.';
+        redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
+      }
+
+      $passwordsAreDifferent = !UserValidator::areThePasswordsTheSame(
+        $password,
+        $repeatedPassword
+      );
+      if ($passwordsAreDifferent) {
+        $_SESSION['error'] = "The passwords don't match.";
+        redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
+      }
+
+      $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+      User::findByIdAndUpdate($userId, [
+        'password' => $hashedPassword
+      ]);
+
+      User::findByIdAndUpdate($userId, [
+        'passwordRecoveryToken' => null,
+        'passwordTokenExpirationTime' => null
+      ]);
+
+      unset($_SESSION['userId']);
+
+      $_SESSION['success'] = 'Your password has been updated.';
+      redirectTo(BASE_URL);
     }
-
-    $passwordsAreDifferent = !UserValidator::areThePasswordsTheSame(
-      $password,
-      $repeatedPassword
-    );
-    if ($passwordsAreDifferent) {
-      $_SESSION['error'] = "The passwords don't match.";
-      redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
-    }
-
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-    User::findByIdAndUpdate($userId, [
-      'password' => $hashedPassword
-    ]);
-
-    User::findByIdAndUpdate($userId, [
-      'passwordRecoveryToken' => null,
-      'passwordTokenExpirationTime' => null
-    ]);
-
-    unset($_SESSION['userId']);
-
-    $_SESSION['success'] = 'Your password has been updated.';
-    redirectTo(BASE_URL);
   }
 }

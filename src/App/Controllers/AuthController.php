@@ -17,9 +17,13 @@ class AuthController extends Controller {
 
     $error = $_SESSION['error'] ?? null;
 
+    $csrfToken = generateToken();
+    $_SESSION['csrfToken'] = $csrfToken;
+
     $data = [
       'success' => $success,
-      'error' => $error
+      'error' => $error,
+      'csrfToken' => $csrfToken
     ];
 
     clearSessionMessages();
@@ -28,7 +32,8 @@ class AuthController extends Controller {
   }
 
   public function auth() {
-    if (isset($_POST['btn-login'])) {
+    $validCsrfToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    if ($validCsrfToken) {
       $email = $_POST['email'];
       $password = $_POST['password'];
 
