@@ -33,8 +33,8 @@ class RecoverPasswordController extends Controller {
   }
 
   public function sendRecoveryToken() {
-    $validCsrfToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
-    if ($validCsrfToken) {
+    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    if ($isAValidCSRFToken) {
       $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
       $isTheEmailFieldEmpty = empty($email);

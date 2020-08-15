@@ -32,8 +32,8 @@ class AuthController extends Controller {
   }
 
   public function auth() {
-    $validCsrfToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
-    if ($validCsrfToken) {
+    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    if ($isAValidCSRFToken) {
       $email = $_POST['email'];
       $password = $_POST['password'];
 

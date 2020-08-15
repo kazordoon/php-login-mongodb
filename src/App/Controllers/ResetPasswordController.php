@@ -50,8 +50,8 @@ class ResetPasswordController extends Controller {
   }
 
   public function reset() {
-    $validCsrfToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
-    if ($validCsrfToken) {
+    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    if ($isAValidCSRFToken) {
       $userId = $_SESSION['userIdToResetPass'] ?? null;
 
       $password = filter_input(INPUT_POST, 'password');

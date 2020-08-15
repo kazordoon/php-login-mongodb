@@ -30,8 +30,8 @@ class RegistrationController extends Controller {
   }
 
   public function store() {
-    $validCsrfToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
-    if ($validCsrfToken) {
+    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    if ($isAValidCSRFToken) {
       $name = htmlentities($_POST['name']);
       $email = htmlentities($_POST['email']);
       $password = htmlentities($_POST['password']);
