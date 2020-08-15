@@ -22,6 +22,8 @@ $router->post('/recover_password', 'RecoverPasswordController:sendRecoveryToken'
 $router->get('/reset_password', 'ResetPasswordController:index');
 $router->post('/reset_password', 'ResetPasswordController:reset');
 
+$router->get('/verify_email', 'VerifyEmailController:index');
+
 $router->dispatch();
 
 if ($router->error()) {
