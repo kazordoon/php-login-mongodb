@@ -14,7 +14,8 @@
     "files": [
       "utils/redirectTo.php",
       "utils/clearSessionMessages.php",
-      "utils/generateToken.php"
+      "utils/generateToken.php",
+      "utils/sendEmailVerificationLink.php"
     ]
   },
   "require": {
