@@ -12,6 +12,8 @@ class User extends Model {
   public string $password;
   public int $passwordTokenExpirationTime;
   public string $passwordRecoveryToken;
+  public bool $verified;
+  public string $emailVerificationToken;
 
   public static function loadModel() {
     $collectionName = 'users';
