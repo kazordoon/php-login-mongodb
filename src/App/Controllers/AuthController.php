@@ -57,6 +57,12 @@ class AuthController extends Controller {
         redirectTo(BASE_URL . 'login');
       }
 
+      $emailHasNotBeenVerified = !$user['verified'];
+      if ($emailHasNotBeenVerified) {
+        $emailVerificationPage = BASE_URL . "send_verification_email?email={$email}";
+        redirectTo($emailVerificationPage);
+      }
+
       $_SESSION['userId'] = $user['_id'];
 
       redirectTo(BASE_URL);

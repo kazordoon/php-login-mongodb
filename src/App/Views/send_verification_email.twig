@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Email verification</title>
+  <link rel="stylesheet" href="{{ constant('BASE_URL') }}assets/css/styles.css" />
+  <style>
+    .container {
+      text-align: left;
+    }
+
+    .mt-10 {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+	<div class="container">
+    <h1>Email verification</h1>
+    <hr />
+    <h3 class="mt-10">Check the confirmation email at {{ email }}</h3>
+    <p class="mt-10">If you do not receive the email in few minutes:</p>
+    <ul>
+      <li>Check spam folder.</li>
+      <li>Verify if you typed your email correctly.</li>
+      <li><a href="">Click here</a> to send another confirmation email.</li>
+    </ul>
+	</div>
+</body>
+</html>

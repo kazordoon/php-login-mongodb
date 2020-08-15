@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\User;
+use App\Providers\Mail;
 use App\Validators\UserValidator;
+use PHPMailer\PHPMailer\Exception;
 
 class RegistrationController extends Controller {
   public function index() {
@@ -72,15 +74,22 @@ class RegistrationController extends Controller {
         redirectTo(BASE_URL . 'register');
       }
 
-
+      $emailVerificationToken = generateToken();
       $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
       User::create([
         'name' => $name,
         'email' => $email,
-        'password' => $hashedPassword
+        'password' => $hashedPassword,
+        'verified' => false,
+        'emailVerificationToken' => $emailVerificationToken
       ]);
 
-      redirectTo(BASE_URL);
+      $user = new User;
+      $user->name = $name;
+      $user->email = $email;
+
+      $emailVerificationPage = BASE_URL . "send_verification_email?email={$email}";
+      redirectTo($emailVerificationPage);
     }
   }
 }
