@@ -5,7 +5,7 @@ export default function generateErrorMessage(errors) {
   }
 
   divError = document.createElement('div');
-  divError.classList.add('error');
+  divError.classList.add('alert alert-danger');
 
   const pError = document.createElement('p');
   const textError = document.createTextNode(errors[0]);

@@ -10,11 +10,11 @@
 <body>
 
 	{% if error %}
-	<div class="error">{{ error }}</div>
+	<div class="alert alert-danger">{{ error }}</div>
 	{% endif %}
 
-	<div class="container">
-		<h1>Register</h1>
+	<div class="container center">
+		<h1 class="title">Register</h1>
 		<form method="POST" action="" name="form-register">
 			<div class="form-group">
 				<label for="name"></label>
@@ -36,7 +36,7 @@
 			</div>
 
       <input type="hidden" name="_csrf" value="{{ csrfToken }}" required />
-			<button type="submit" name="btn-register">Register</button>
+			<button class="btn" type="submit" name="btn-register">Register</button>
 			<p><small>Already have an account ? <a href="login.php">Log in</a></small></p>
 		</form>
 	</div>
