@@ -12,7 +12,6 @@ class LogOutController extends Controller {
       session_destroy();
     }
 
-    header('Location: ' . BASE_URL . 'login');
-    exit;
+    redirectTo(BASE_URL . 'login');
   }
 }
