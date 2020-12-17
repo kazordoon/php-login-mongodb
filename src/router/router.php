@@ -24,7 +24,7 @@ $router->post('/reset_password', 'ResetPasswordController:reset');
 
 $router->get('/verify_email', 'VerifyEmailController:index');
 
-$router->get('/send_verification_email', 'SendVerificationEmailController:index');
+$router->get('/send_verification_email', 'SendEmailVerificationController:index');
 
 $router->dispatch();
 
