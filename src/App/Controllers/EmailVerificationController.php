@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\User;
 
-class VerifyEmailController extends Controller {
+class EmailVerificationController extends Controller {
   public function index() {
     $email = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);
     $emailVerificationToken = filter_input(INPUT_GET, 'token');

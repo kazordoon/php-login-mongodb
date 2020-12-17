@@ -16,15 +16,15 @@ $router->get('/logout', 'LogOutController:index');
 $router->get('/register', 'RegistrationController:index');
 $router->post('/register', 'RegistrationController:store');
 
-$router->get('/recover_password', 'RecoverPasswordController:index');
-$router->post('/recover_password', 'RecoverPasswordController:sendRecoveryToken');
+$router->get('/recover_password', 'PasswordRecoveryController:index');
+$router->post('/recover_password', 'PasswordRecoveryController:sendRecoveryToken');
 
-$router->get('/reset_password', 'ResetPasswordController:index');
-$router->post('/reset_password', 'ResetPasswordController:reset');
+$router->get('/reset_password', 'PasswordResetController:index');
+$router->post('/reset_password', 'PasswordResetController:reset');
 
-$router->get('/verify_email', 'VerifyEmailController:index');
+$router->get('/verify_email', 'EmailVerificationController:index');
 
-$router->get('/send_verification_email', 'SendEmailVerificationController:index');
+$router->get('/send_verification_email', 'EmailCheckSendingController:index');
 
 $router->dispatch();
 

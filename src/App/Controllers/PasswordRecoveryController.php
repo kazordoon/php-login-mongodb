@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Providers\Mail;
 use PHPMailer\PHPMailer\Exception;
 
-class RecoverPasswordController extends Controller {
+class PasswordRecoveryController extends Controller {
   public function index() {
     $isTheUserLoggedIn = isset($_SESSION['userId']);
 

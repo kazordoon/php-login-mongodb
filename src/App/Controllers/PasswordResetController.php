@@ -6,7 +6,7 @@ use App\Core\Controller;
 use App\Models\User;
 use App\Validators\UserValidator;
 
-class ResetPasswordController extends Controller {
+class PasswordResetController extends Controller {
   public function index() {
     $error = $_SESSION['error'] ?? null;
 

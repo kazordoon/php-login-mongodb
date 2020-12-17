@@ -6,7 +6,7 @@ use App\Core\Controller;
 use App\Models\User;
 use PHPMailer\PHPMailer\Exception;
 
-class SendEmailVerificationController extends Controller {
+class EmailCheckSendingController extends Controller {
   public function index() {
     $email = filter_input(INPUT_GET, 'email');
 
