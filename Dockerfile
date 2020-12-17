@@ -11,6 +11,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 COPY ./src /var/www/html
 COPY ./apache/000-default.conf /etc/apache2/sites-available
 WORKDIR /var/www/html
+RUN composer install
 # Enable the rewrite mod on apache
 RUN a2enmod rewrite && \
     service apache2 restart
