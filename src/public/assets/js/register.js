@@ -4,16 +4,16 @@ import UserValidator from './validators/UserValidator.js';
 (function () {
   const form = document.forms['form-register'];
 
-  form.addEventListener('submit', function(event) {
+  form.addEventListener('submit', function (event) {
     const errors = [];
 
     const inputs = document.querySelectorAll('form[name=form-register] input');
-    const emptyInputs = Array.prototype.some.call(
+    const hasEmptyFields = Array.prototype.some.call(
       inputs,
       (input) => input.value.length === 0
     );
 
-    if (emptyInputs) {
+    if (hasEmptyFields) {
       errors.push('Fill in all fields');
     }
 
@@ -21,9 +21,16 @@ import UserValidator from './validators/UserValidator.js';
     const password = document.querySelector('#password').value;
     const repeatedPassword = document.querySelector('#repeatedPassword').value;
 
-    const invalidEmail = !UserValidator.isAValidEmail(email);
-    if (invalidEmail) {
-      errors.push('The email provided is invalid');
+    const isAnInvalidEmail = !UserValidator.isAValidEmail(email);
+    if (isAnInvalidEmail) {
+      errors.push('The provided email is invalid');
+    }
+
+    const hasAnInvalidPasswordLength = !UserValidator.hasAValidPasswordLength(
+      password
+    );
+    if (hasAnInvalidPasswordLength) {
+      errors.push('The password must have between 8 and 50 characters');
     }
 
     const passwordsAreDifferent = !UserValidator.areThePasswordsTheSame(
@@ -31,11 +38,11 @@ import UserValidator from './validators/UserValidator.js';
       repeatedPassword
     );
     if (passwordsAreDifferent) {
-      errors.push("Passwords don't match");
+      errors.push('The passwords don\'t match');
     }
 
     if (errors.length > 0) {
-      generateErrorMessage(errors);
+      generateErrorMessage(errors[0]);
       event.preventDefault();
     }
   });

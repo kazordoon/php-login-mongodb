@@ -22,7 +22,7 @@ class UserValidator {
   static hasAValidPasswordLength(password) {
     const minLength = 8;
     const maxLength = 50;
-    return password.length > minLength || password.length < maxLength;
+    return password.length >= minLength && password.length <= maxLength;
   }
 }
 
