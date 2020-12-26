@@ -27,7 +27,3 @@ $router->get('/verify_email', 'EmailVerificationController:index');
 $router->get('/send_verification_email', 'EmailCheckSendingController:index');
 
 $router->dispatch();
-
-if ($router->error()) {
-  $router->redirect('/login');
-}
