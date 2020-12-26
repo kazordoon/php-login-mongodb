@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28523bfeba502d4e2b2e1a25971f41a8",
+    "content-hash": "14d54255747ed9e823a1c77cda5da023",
     "packages": [
         {
             "name": "coffeecode/router",
@@ -118,75 +118,6 @@
                 "persistence"
             ],
             "time": "2020-07-03T11:35:00+00:00"
-        },
-        {
-            "name": "pecee/pixie",
-            "version": "4.11.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/skipperbent/pecee-pixie.git",
-                "reference": "9c66de8a19c5bec476f09f972b2350e58b01b1a2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/skipperbent/pecee-pixie/zipball/9c66de8a19c5bec476f09f972b2350e58b01b1a2",
-                "reference": "9c66de8a19c5bec476f09f972b2350e58b01b1a2",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pdo": "*",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "ext-pdo_sqlite": "*",
-                "mockery/mockery": "^1",
-                "phpunit/phpunit": "^6.0"
-            },
-            "suggest": {
-                "ext-pdo_sqlite": "Add extension for SQLite support"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Pecee\\Pixie\\": "src/Pecee/Pixie/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Muhammad Usman",
-                    "email": "hi@usman.it",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Pavel Puchkin",
-                    "email": "i@neoascetic.me",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Simon Sessingø",
-                    "email": "simon.sessingoe@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Lightweight, fast query-builder for PHP based on Laravel Eloquent but with less overhead.",
-            "homepage": "https://github.com/skipperbent/pecee-pixie",
-            "keywords": [
-                "database",
-                "eloquent",
-                "mysql",
-                "pecee",
-                "pixie",
-                "postgresql",
-                "query builder",
-                "querybuilder",
-                "sql",
-                "sqlite"
-            ],
-            "time": "2018-09-06T10:21:24+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -702,5 +633,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }

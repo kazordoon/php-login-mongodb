@@ -22,7 +22,6 @@
     "coffeecode/router": "^1.0",
     "twig/twig": "^3.0",
     "twig/intl-extra": "^3.0",
-    "pecee/pixie": "^4.11",
     "mongodb/mongodb": "^1.6",
     "phpmailer/phpmailer": "^6.1"
   }
