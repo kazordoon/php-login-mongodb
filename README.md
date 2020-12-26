@@ -1,21 +1,30 @@
-
 # php-login-mongodb
 Login with PHP using MongoDB as database.
 
 ## Getting Started
 
-- Clone the repository: `git clone https://github.com/kazordoon/php-login-mongodb.git`
-- Get in the project directory: `cd php-login-mongodb`
-
 ### Prerequisites
 - Docker
 - Docker Compose
 
-### Run containers
-- `docker-composer up -d`
+### Installation
+- Clone the repository: `git clone https://github.com/kazordoon/php-login-mongodb.git`
+- Get in the project directory: `cd php-login-mongodb`
+- Run the containers: `docker-composer up -d`
+- Run the script to configure the database: `./scripts/configure-database.sh`
+- Run the script to install the PHP dependencies: `./scripts/install-php-dependencies.sh`
 
-### Run the script to prepare the MongoDB
-- `./src/config/script.sh`
+## Configuration
+- Edit the `src/config/config.inc.php` file, changing the constants `MAIL_*`
+
+## Built with
+- [PHP 7.4](https://www.php.net/)
+	- [coffeecode/router](https://packagist.org/packages/coffeecode/router)
+	- [twig/twig](https://packagist.org/packages/twig/twig)
+	- [twig/intl-extra](https://packagist.org/packages/twig/intl-extra)
+	- [mongodb/mongodb](https://packagist.org/packages/mongodb/mongodb)
+	- [phpmailer/phpmailer](https://packagist.org/packages/phpmailer/phpmailer)
+- [MongoDB](https://www.mongodb.com/)
 
 ## Versioning
 
