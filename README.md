@@ -17,6 +17,8 @@ Login with PHP using MongoDB as database.
 ## Configuration
 - Edit the `src/config/config.inc.php` file, changing the constants `MAIL_*`
 
+After the configuration, access the following URL at the browser: [http://localhost:8080/](http://localhost:8080/)
+
 ## Built with
 - [PHP 7.4](https://www.php.net/)
 	- [coffeecode/router](https://packagist.org/packages/coffeecode/router)
