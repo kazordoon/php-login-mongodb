@@ -8,7 +8,7 @@ use App\Validators\UserValidator;
 
 class PasswordResetController extends Controller {
   public function index() {
-    $error = $_SESSION['error'] ?? null;
+    $errorMessage = $_SESSION['error_message'] ?? null;
 
     $email = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);
     $passwordRecoveryToken = filter_input(INPUT_GET, 'token');
@@ -17,31 +17,31 @@ class PasswordResetController extends Controller {
 
     $userNotFound = !$user;
     if ($userNotFound) {
-      $_SESSION['error'] = 'There is no user with the provided email.';
+      $_SESSION['error_message'] = 'There is no user with the provided email.';
       redirectTo(BASE_URL . 'recover_password');
     }
 
-    $invalidPasswordRecoveryToken = $user['passwordRecoveryToken'] !== $passwordRecoveryToken;
-    if ($invalidPasswordRecoveryToken) {
-      $_SESSION['error'] = 'Invalid token.';
+    $hasAnInvalidPasswordRecoveryToken = $user['passwordRecoveryToken'] !== $passwordRecoveryToken;
+    if ($hasAnInvalidPasswordRecoveryToken) {
+      $_SESSION['error_message'] = 'Invalid token.';
       redirectTo(BASE_URL . 'recover_password');
     }
 
     $now = time();
     $passwordRecoveryTokenHasExpired = $user['passwordTokenExpirationTime'] < $now;
     if ($passwordRecoveryTokenHasExpired) {
-      $_SESSION['error'] = 'The password recovery token has expired.';
+      $_SESSION['error_message'] = 'The password recovery token has expired.';
       redirectTo(BASE_URL . 'recover_password');
     }
 
-    $_SESSION['userIdToResetPass'] = $user['_id'];
+    $_SESSION['user_id_to_reset_pass'] = $user['_id'];
 
     $csrfToken = generateToken();
-    $_SESSION['csrfToken'] = $csrfToken;
+    $_SESSION['csrf_token'] = $csrfToken;
 
     $data = [
-      'error' => $error,
-      'csrfToken' => $csrfToken
+      'error_message' => $errorMessage,
+      'csrf_token' => $csrfToken
     ];
 
     clearSessionMessages();
@@ -50,16 +50,16 @@ class PasswordResetController extends Controller {
   }
 
   public function reset() {
-    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrf_token'];
     if ($isAValidCSRFToken) {
-      $userId = $_SESSION['userIdToResetPass'] ?? null;
+      $userId = $_SESSION['user_id_to_reset_pass'] ?? null;
 
       $password = filter_input(INPUT_POST, 'password');
       $repeatedPassword = filter_input(INPUT_POST, 'repeatedPassword');
 
       $hasAnInvalidPasswordLength = !UserValidator::hasAValidPasswordLength($password);
       if ($hasAnInvalidPasswordLength) {
-        $_SESSION['error'] = 'The password must have between 8 and 50 characters.';
+        $_SESSION['error_message'] = 'The password must have between 8 and 50 characters.';
         redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
       }
 
@@ -68,7 +68,7 @@ class PasswordResetController extends Controller {
         $repeatedPassword
       );
       if ($passwordsAreDifferent) {
-        $_SESSION['error'] = "The passwords don't match.";
+        $_SESSION['error_message'] = "The passwords don't match.";
         redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
       }
 
@@ -82,9 +82,9 @@ class PasswordResetController extends Controller {
         'passwordTokenExpirationTime' => null
       ]);
 
-      unset($_SESSION['userId']);
+      unset($_SESSION['user_id']);
 
-      $_SESSION['success'] = 'Your password has been updated.';
+      $_SESSION['success_message'] = 'Your password has been updated.';
       redirectTo(BASE_URL);
     }
   }

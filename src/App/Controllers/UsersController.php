@@ -9,7 +9,7 @@ use MongoDB\Client;
 class UsersController extends Controller {
   public function index() {
 
-    $userId = $_SESSION['userId'] ?? null;
+    $userId = $_SESSION['user_id'] ?? null;
 
     if (!$userId) {
       redirectTo(BASE_URL . 'login');

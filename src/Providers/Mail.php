@@ -27,7 +27,7 @@ class Mail {
 
     $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
-    $this->mail->setFrom('kazor@pm.me', 'John Doe');
+    $this->mail->setFrom(MAIL_EMAIL_ADDRESS, MAIL_NAME);
     $this->mail->isHTML(false);
     $this->mail->CharSet = 'UTF-8';
   }

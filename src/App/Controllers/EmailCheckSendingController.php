@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class EmailCheckSendingController extends Controller {
   public function index() {
-    $email = filter_input(INPUT_GET, 'email');
+    $email = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);
 
     if (!$email) {
       redirectTo(BASE_URL . 'login');
@@ -21,24 +21,24 @@ class EmailCheckSendingController extends Controller {
       redirectTo(BASE_URL . 'login');
     }
 
-    $hasTheEmailAlreadyVerified = $foundUser['verified'];
-    if ($hasTheEmailAlreadyVerified) {
+    $hasTheEmailBeenVerified = $foundUser['verified'];
+    if ($hasTheEmailBeenVerified) {
       redirectTo(BASE_URL . 'login');
     }
 
-    $user = new User;
-    $user->name = $foundUser['name'];
-    $user->email = $email;
     $emailVerificationToken = generateToken();
-
     User::findByIdAndUpdate($foundUser['_id'], [
       'emailVerificationToken' => $emailVerificationToken
     ]);
 
+    $user = new User;
+    $user->name = $foundUser['name'];
+    $user->email = $email;
+
     try {
       sendEmailVerificationLink($user, $emailVerificationToken);
     } catch (Exception $e) {
-      $_SESSION['error'] = 'Could not to send an email verification link via email, try again.';
+      $_SESSION['error_message'] = 'Could not to send an email verification link via email, try again.';
       redirectTo(BASE_URL . 'login');
     }
 

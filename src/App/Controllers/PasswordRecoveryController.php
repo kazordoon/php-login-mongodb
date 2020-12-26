@@ -15,16 +15,16 @@ class PasswordRecoveryController extends Controller {
       redirectTo(BASE_URL);
     }
 
-    $error = $_SESSION['error'] ?? null;
-    $success = $_SESSION['success'] ?? null;
+    $errorMessage = $_SESSION['error_message'] ?? null;
+    $successMessage = $_SESSION['success_message'] ?? null;
 
     $csrfToken = generateToken();
-    $_SESSION['csrfToken'] = $csrfToken;
+    $_SESSION['csrf_token'] = $csrfToken;
 
     $data = [
-      'error' => $error,
-      'success' => $success,
-      'csrfToken' => $csrfToken
+      'error_message' => $errorMessage,
+      'success_message' => $successMessage,
+      'csrf_token' => $csrfToken
     ];
 
     clearSessionMessages();
@@ -33,13 +33,13 @@ class PasswordRecoveryController extends Controller {
   }
 
   public function sendRecoveryToken() {
-    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrf_token'];
     if ($isAValidCSRFToken) {
       $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
       $isTheEmailFieldEmpty = empty($email);
       if ($isTheEmailFieldEmpty) {
-        $_SESSION['error'] = 'Fill in the email field.';
+        $_SESSION['error_message'] = 'Fill in the email field.';
         redirectTo(BASE_URL . 'recover_password');
       }
 
@@ -47,7 +47,7 @@ class PasswordRecoveryController extends Controller {
 
       $userNotFound = !$user;
       if ($userNotFound) {
-        $_SESSION['error'] = 'There is no user with the provided email.';
+        $_SESSION['error_message'] = 'There is no user with the provided email.';
         redirectTo(BASE_URL . 'recover_password');
       }
 
@@ -68,9 +68,9 @@ class PasswordRecoveryController extends Controller {
 
       try {
         $mail->send();
-        $_SESSION['success'] = 'An email message with the password recovery link has been sent to your email.';
+        $_SESSION['success_message'] = 'An email message with the password recovery link has been sent to your email.';
       } catch (Exception $e) {
-        $_SESSION['error'] = 'Could not to send a password recovery link via email, try again.';
+        $_SESSION['error_message'] = 'Could not to send a password recovery link via email, try again.';
       }
 
       redirectTo(BASE_URL . 'recover_password');

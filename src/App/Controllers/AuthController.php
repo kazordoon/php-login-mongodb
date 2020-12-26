@@ -7,22 +7,22 @@ use App\Models\User;
 
 class AuthController extends Controller {
   public function index() {
-    $isTheUserLoggedIn = isset($_SESSION['userId']);
-    $success = $_SESSION['success'] ?? null;
+    $isTheUserLoggedIn = isset($_SESSION['user_id']);
 
     if ($isTheUserLoggedIn) {
       redirectTo(BASE_URL);
     }
 
-    $error = $_SESSION['error'] ?? null;
+    $successMessage = $_SESSION['success_message'] ?? null;
+    $errorMessage = $_SESSION['error_message'] ?? null;
 
     $csrfToken = generateToken();
-    $_SESSION['csrfToken'] = $csrfToken;
+    $_SESSION['csrf_token'] = $csrfToken;
 
     $data = [
-      'success' => $success,
-      'error' => $error,
-      'csrfToken' => $csrfToken
+      'success_message' => $successMessage,
+      'error_message' => $errorMessage,
+      'csrf_token' => $csrfToken
     ];
 
     clearSessionMessages();
@@ -31,14 +31,14 @@ class AuthController extends Controller {
   }
 
   public function auth() {
-    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrf_token'];
     if ($isAValidCSRFToken) {
-      $email = $_POST['email'];
-      $password = $_POST['password'];
+      $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+      $password = filter_input(INPUT_POST, 'password');
 
       $areTheFieldsEmpty = empty($email) || empty($password);
       if ($areTheFieldsEmpty) {
-        $_SESSION['error'] = 'Fill in all fields';
+        $_SESSION['error_message'] = 'Fill in all fields';
         redirectTo(BASE_URL . 'login');
       }
 
@@ -46,13 +46,13 @@ class AuthController extends Controller {
 
       $userNotFound = empty($user);
       if ($userNotFound) {
-        $_SESSION['error'] = 'User not found';
+        $_SESSION['error_message'] = 'User not found';
         redirectTo(BASE_URL . 'login');
       }
 
       $isThePasswordIncorrect = !password_verify($password, $user['password']);
       if ($isThePasswordIncorrect) {
-        $_SESSION['error'] = 'Incorrect password';
+        $_SESSION['error_message'] = 'Incorrect password';
         redirectTo(BASE_URL . 'login');
       }
 
@@ -62,7 +62,7 @@ class AuthController extends Controller {
         redirectTo($emailVerificationPage);
       }
 
-      $_SESSION['userId'] = $user['_id'];
+      $_SESSION['user_id'] = $user['_id'];
 
       redirectTo(BASE_URL);
     }

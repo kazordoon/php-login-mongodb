@@ -6,7 +6,7 @@ use App\Core\Controller;
 
 class LogOutController extends Controller {
   public function index() {
-    $isTheUserLoggedIn = $_SESSION['userId'] ?? null;
+    $isTheUserLoggedIn = $_SESSION['user_id'] ?? null;
 
     if ($isTheUserLoggedIn) {
       session_destroy();

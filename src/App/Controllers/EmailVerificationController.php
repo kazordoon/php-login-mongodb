@@ -14,13 +14,13 @@ class EmailVerificationController extends Controller {
 
     $userNotFound = !$user;
     if ($userNotFound) {
-      $_SESSION['error'] = 'There is no user with the provided email.';
+      $_SESSION['error_message'] = 'There is no user with the provided email.';
       redirectTo(BASE_URL . 'login');
     }
 
-    $invalidEmailVerificationToken = $user['emailVerificationToken'] !== $emailVerificationToken;
-    if ($invalidEmailVerificationToken) {
-      $_SESSION['error'] = 'Invalid token.';
+    $isAnInvalidEmailVerificationToken = $user['emailVerificationToken'] !== $emailVerificationToken;
+    if ($isAnInvalidEmailVerificationToken) {
+      $_SESSION['error_message'] = 'Invalid token.';
       redirectTo(BASE_URL . 'login');
     }
 
@@ -29,7 +29,7 @@ class EmailVerificationController extends Controller {
       'emailVerificationToken' => null
     ]);
 
-    $_SESSION['success'] = 'Your email has been verified.';
+    $_SESSION['success_message'] = 'Your email has been verified.';
     redirectTo(BASE_URL);
   }
 }

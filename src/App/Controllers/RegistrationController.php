@@ -10,20 +10,20 @@ use PHPMailer\PHPMailer\Exception;
 
 class RegistrationController extends Controller {
   public function index() {
-    $isTheUserLoggedIn = isset($_SESSION['userId']);
+    $isTheUserLoggedIn = isset($_SESSION['user_id']);
 
     if ($isTheUserLoggedIn) {
       redirectTo(BASE_URL);
     }
 
-    $error = $_SESSION['error'] ?? null;
+    $errorMessage = $_SESSION['error_message'] ?? null;
 
     $csrfToken = generateToken();
-    $_SESSION['csrfToken'] = $csrfToken;
+    $_SESSION['csrf_token'] = $csrfToken;
 
     $data = [
-      'error' => $error,
-      'csrfToken' => $csrfToken
+      'error_message' => $errorMessage,
+      'csrf_token' => $csrfToken
     ];
 
     clearSessionMessages();
@@ -32,22 +32,22 @@ class RegistrationController extends Controller {
   }
 
   public function store() {
-    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrfToken'];
+    $isAValidCSRFToken = $_POST['_csrf'] === $_SESSION['csrf_token'];
     if ($isAValidCSRFToken) {
-      $name = htmlentities($_POST['name']);
-      $email = htmlentities($_POST['email']);
-      $password = htmlentities($_POST['password']);
-      $repeatedPassword = htmlentities($_POST['repeatedPassword']);
+      $name = filter_input(INPUT_POST, 'name');
+      $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+      $password = filter_input(INPUT_POST, 'password');
+      $repeatedPassword = filter_input(INPUT_POST, 'repeatedPassword');
 
       $areTheFieldsEmpty = empty($name) && empty($email) && empty($password);
       if ($areTheFieldsEmpty) {
-        $_SESSION['error'] = 'Fill in all fields.';
+        $_SESSION['error_message'] = 'Fill in all fields.';
         redirectTo(BASE_URL . 'register');
       }
 
       $hasAnInvalidPasswordLength = !UserValidator::hasAValidPasswordLength($password);
       if ($hasAnInvalidPasswordLength) {
-        $_SESSION['error'] = 'The password must have between 8 and 50 characters.';
+        $_SESSION['error_message'] = 'The password must have between 8 and 50 characters.';
         redirectTo(BASE_URL . 'register');
       }
 
@@ -56,13 +56,13 @@ class RegistrationController extends Controller {
         $repeatedPassword
       );
       if ($passwordsAreDifferent) {
-        $_SESSION['error'] = "The passwords don't match.";
+        $_SESSION['error_message'] = "The passwords don't match.";
         redirectTo(BASE_URL . 'register');
       }
 
       $isAnInvalidEmail = !UserValidator::isAValidEmail($email);
       if ($isAnInvalidEmail) {
-        $_SESSION['error'] = 'The provided email has an invalid format.';
+        $_SESSION['error_message'] = 'The provided email has an invalid format.';
         redirectTo(BASE_URL . 'register');
       }
 
@@ -70,7 +70,7 @@ class RegistrationController extends Controller {
 
       $userAlreadyExists = !empty($user);
       if ($userAlreadyExists) {
-        $_SESSION['error'] = 'This email is already in use.';
+        $_SESSION['error_message'] = 'This email is already in use.';
         redirectTo(BASE_URL . 'register');
       }
 
@@ -83,10 +83,6 @@ class RegistrationController extends Controller {
         'verified' => false,
         'emailVerificationToken' => $emailVerificationToken
       ]);
-
-      $user = new User;
-      $user->name = $name;
-      $user->email = $email;
 
       $emailVerificationPage = BASE_URL . "send_verification_email?email={$email}";
       redirectTo($emailVerificationPage);
