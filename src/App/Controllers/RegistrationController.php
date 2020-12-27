@@ -4,9 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\User;
-use App\Providers\Mail;
 use App\Validators\UserValidator;
-use PHPMailer\PHPMailer\Exception;
 
 class RegistrationController extends Controller {
   public function index() {
@@ -39,7 +37,7 @@ class RegistrationController extends Controller {
       $password = filter_input(INPUT_POST, 'password');
       $repeatedPassword = filter_input(INPUT_POST, 'repeatedPassword');
 
-      $areTheFieldsEmpty = empty($name) && empty($email) && empty($password);
+      $areTheFieldsEmpty = empty($name) || empty($email) || empty($password);
       if ($areTheFieldsEmpty) {
         $_SESSION['error_message'] = 'Fill in all fields.';
         redirectTo(BASE_URL . 'register');
