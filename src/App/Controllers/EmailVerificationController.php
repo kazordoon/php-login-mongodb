@@ -31,6 +31,12 @@ class EmailVerificationController extends Controller {
       redirectTo(BASE_URL . 'login');
     }
 
+    $emailAlreadyVerified = $user['verified'];
+    if ($emailAlreadyVerified) {
+      $_SESSION['error_message'] = 'This email has already been verified before.';
+      redirectTo(BASE_URL . 'login');
+    }
+
     $isAnInvalidEmailVerificationToken = $user['emailVerificationToken'] !== $emailVerificationToken;
     if ($isAnInvalidEmailVerificationToken) {
       $_SESSION['error_message'] = 'Invalid token.';
