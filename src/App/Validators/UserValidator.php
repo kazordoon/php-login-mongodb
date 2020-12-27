@@ -3,6 +3,11 @@
 namespace App\Validators;
 
 class UserValidator {
+  public static function hasAValidNameLength(string $name) {
+    $maxLength = 255;
+    return strlen($name) <= $maxLength;
+  }
+
   public static function isAValidEmail(string $email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
   }
