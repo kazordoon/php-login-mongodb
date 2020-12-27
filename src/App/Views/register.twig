@@ -37,7 +37,7 @@
 
       <input type="hidden" name="_csrf" value="{{ csrf_token }}" required />
 			<button class="btn" type="submit" name="btn-register">Register</button>
-			<p><small>Already have an account ? <a href="login.php">Log in</a></small></p>
+			<p><small>Already have an account ? <a href="{{ constant('BASE_URL') }}login">Log in</a></small></p>
 		</form>
 	</div>
 
