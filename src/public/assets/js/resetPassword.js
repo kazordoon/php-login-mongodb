@@ -1,17 +1,17 @@
-import generateErrorMessage from './utils/generateErrorMessage.js';
-import UserValidator from './validators/UserValidator.js';
+import generateErrorMessage from "./utils/generateErrorMessage.js";
+import UserValidator from "./validators/UserValidator.js";
 
 (function () {
-  const form = document.forms['form-reset-password'];
+  const form = document.forms["form-reset-password"];
 
-  form.addEventListener('submit', function (event) {
+  form.addEventListener("submit", function (event) {
     const errors = [];
 
-    const password = document.querySelector('#password').value;
-    const repeatedPassword = document.querySelector('#repeatedPassword').value;
+    const password = document.querySelector("#password").value;
+    const repeatedPassword = document.querySelector("#repeatedPassword").value;
 
     const inputs = document.querySelectorAll(
-      'form[name=form-reset-password] input'
+      "form[name=form-reset-password] input"
     );
     const hasEmptyFields = Array.prototype.some.call(
       inputs,
@@ -19,15 +19,15 @@ import UserValidator from './validators/UserValidator.js';
     );
 
     if (hasEmptyFields) {
-      errors.push('Fill in all fields');
+      errors.push("Fill in all fields");
     }
 
-    const passwordsAreDifferent = !UserValidator.arePasswordsTheSame(
+    const passwordsAreDifferent = !UserValidator.areThePasswordsTheSame(
       password,
       repeatedPassword
     );
     if (passwordsAreDifferent) {
-      errors.push('The passwords don\'t match');
+      errors.push("The passwords don't match");
     }
 
     if (errors.length > 0) {
