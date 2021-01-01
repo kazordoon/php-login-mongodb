@@ -75,7 +75,7 @@ class PasswordResetController extends Controller {
         redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
       }
 
-      $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+      $hashedPassword = password_hash($password, PASSWORD_HASH);
       User::findByIdAndUpdate($userId, [
         'password' => $hashedPassword
       ]);
