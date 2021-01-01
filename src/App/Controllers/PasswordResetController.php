@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Errors\AccountErrors;
+use App\Errors\TokenErrors;
+use App\Errors\ValidationErrors;
 use App\Models\User;
 use App\Validators\UserValidator;
 
@@ -17,20 +20,20 @@ class PasswordResetController extends Controller {
 
     $userNotFound = !$user;
     if ($userNotFound) {
-      $_SESSION['error_message'] = 'There is no user with the provided email.';
+      $_SESSION['error_message'] = AccountErrors::ACCOUNT_NOT_FOUND;
       redirectTo(BASE_URL . 'recover_password');
     }
 
     $hasAnInvalidPasswordRecoveryToken = $user['passwordRecoveryToken'] !== $passwordRecoveryToken;
     if ($hasAnInvalidPasswordRecoveryToken) {
-      $_SESSION['error_message'] = 'Invalid token.';
+      $_SESSION['error_message'] = TokenErrors::INVALID_TOKEN;
       redirectTo(BASE_URL . 'recover_password');
     }
 
     $now = time();
     $passwordRecoveryTokenHasExpired = $user['passwordTokenExpirationTime'] < $now;
     if ($passwordRecoveryTokenHasExpired) {
-      $_SESSION['error_message'] = 'The password recovery token has expired.';
+      $_SESSION['error_message'] = TokenErrors::EXPIRED_TOKEN;
       redirectTo(BASE_URL . 'recover_password');
     }
 
@@ -59,7 +62,7 @@ class PasswordResetController extends Controller {
 
       $hasAnInvalidPasswordLength = !UserValidator::hasAValidPasswordLength($password);
       if ($hasAnInvalidPasswordLength) {
-        $_SESSION['error_message'] = 'The password must have between 8 and 50 characters.';
+        $_SESSION['error_message'] = ValidationErrors::INVALID_PASSWORD_LENGTH;
         redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
       }
 
@@ -68,7 +71,7 @@ class PasswordResetController extends Controller {
         $repeatedPassword
       );
       if ($passwordsAreDifferent) {
-        $_SESSION['error_message'] = "The passwords don't match.";
+        $_SESSION['error_message'] = ValidationErrors::DIFFERENT_PASSWORDS;
         redirectTo(BASE_URL . $_SERVER['REQUEST_URI']);
       }
 

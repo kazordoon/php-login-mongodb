@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Models\User;
+use App\Errors\AccountErrors;
+use App\Errors\ValidationErrors;
 
 class AuthController extends Controller {
   public function index() {
@@ -38,7 +40,7 @@ class AuthController extends Controller {
 
       $areTheFieldsEmpty = empty($email) || empty($password);
       if ($areTheFieldsEmpty) {
-        $_SESSION['error_message'] = 'Fill in all fields';
+        $_SESSION['error_message'] = ValidationErrors::EMPTY_FIELDS;
         redirectTo(BASE_URL . 'login');
       }
 
@@ -46,13 +48,13 @@ class AuthController extends Controller {
 
       $userNotFound = empty($user);
       if ($userNotFound) {
-        $_SESSION['error_message'] = 'User not found';
+        $_SESSION['error_message'] = AccountErrors::ACCOUNT_NOT_FOUND;
         redirectTo(BASE_URL . 'login');
       }
 
       $isThePasswordIncorrect = !password_verify($password, $user['password']);
       if ($isThePasswordIncorrect) {
-        $_SESSION['error_message'] = 'Incorrect password';
+        $_SESSION['error_message'] = AccountErrors::INCORRECT_PASSWORD;
         redirectTo(BASE_URL . 'login');
       }
 

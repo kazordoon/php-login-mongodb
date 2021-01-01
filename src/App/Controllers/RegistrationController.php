@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Errors\AccountErrors;
+use App\Errors\ValidationErrors;
 use App\Models\User;
 use App\Validators\UserValidator;
 
@@ -39,19 +41,19 @@ class RegistrationController extends Controller {
 
       $areTheFieldsEmpty = empty($name) || empty($email) || empty($password);
       if ($areTheFieldsEmpty) {
-        $_SESSION['error_message'] = 'Fill in all fields.';
+        $_SESSION['error_message'] = ValidationErrors::EMPTY_FIELDS;
         redirectTo(BASE_URL . 'register');
       }
 
       $hasAnInvalidNameLength = !UserValidator::hasAValidNameLength($name);
       if ($hasAnInvalidNameLength) {
-        $_SESSION['error_message'] = 'Name too long, try using only the first and last name.';
+        $_SESSION['error_message'] = ValidationErrors::INVALID_NAME_LENGTH;
         redirectTo(BASE_URL . 'register');
       }
 
       $hasAnInvalidPasswordLength = !UserValidator::hasAValidPasswordLength($password);
       if ($hasAnInvalidPasswordLength) {
-        $_SESSION['error_message'] = 'The password must have between 8 and 50 characters.';
+        $_SESSION['error_message'] = ValidationErrors::INVALID_PASSWORD_LENGTH;
         redirectTo(BASE_URL . 'register');
       }
 
@@ -60,13 +62,13 @@ class RegistrationController extends Controller {
         $repeatedPassword
       );
       if ($passwordsAreDifferent) {
-        $_SESSION['error_message'] = "The passwords don't match.";
+        $_SESSION['error_message'] = ValidationErrors::DIFFERENT_PASSWORDS;
         redirectTo(BASE_URL . 'register');
       }
 
       $isAnInvalidEmail = !UserValidator::isAValidEmail($email);
       if ($isAnInvalidEmail) {
-        $_SESSION['error_message'] = 'The provided email has an invalid format.';
+        $_SESSION['error_message'] = ValidationErrors::INVALID_EMAIL_FORMAT;
         redirectTo(BASE_URL . 'register');
       }
 
@@ -74,7 +76,7 @@ class RegistrationController extends Controller {
 
       $userAlreadyExists = !empty($user);
       if ($userAlreadyExists) {
-        $_SESSION['error_message'] = 'This email is already in use.';
+        $_SESSION['error_message'] = AccountErrors::EMAIL_ALREADY_IN_USE;
         redirectTo(BASE_URL . 'register');
       }
 

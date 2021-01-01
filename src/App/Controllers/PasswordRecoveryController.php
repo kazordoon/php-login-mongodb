@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Errors\AccountErrors;
+use App\Errors\MailErrors;
+use App\Errors\ValidationErrors;
 use App\Models\User;
 use App\Providers\Mail;
 use PHPMailer\PHPMailer\Exception;
@@ -39,7 +42,7 @@ class PasswordRecoveryController extends Controller {
 
       $isTheEmailFieldEmpty = empty($email);
       if ($isTheEmailFieldEmpty) {
-        $_SESSION['error_message'] = 'Fill in the email field.';
+        $_SESSION['error_message'] = ValidationErrors::EMPTY_EMAIL_FIELD;
         redirectTo(BASE_URL . 'recover_password');
       }
 
@@ -47,7 +50,7 @@ class PasswordRecoveryController extends Controller {
 
       $userNotFound = !$user;
       if ($userNotFound) {
-        $_SESSION['error_message'] = 'There is no user with the provided email.';
+        $_SESSION['error_message'] = AccountErrors::ACCOUNT_NOT_FOUND;
         redirectTo(BASE_URL . 'recover_password');
       }
 
@@ -70,7 +73,7 @@ class PasswordRecoveryController extends Controller {
         $mail->send();
         $_SESSION['success_message'] = 'An email message with the password recovery link has been sent to your email.';
       } catch (Exception $e) {
-        $_SESSION['error_message'] = 'Could not to send a password recovery link via email, try again.';
+        $_SESSION['error_message'] = MailErrors::EMAIL_MESSAGE_NOT_SENT;
       }
 
       redirectTo(BASE_URL . 'recover_password');
