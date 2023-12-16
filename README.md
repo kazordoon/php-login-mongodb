@@ -20,10 +20,9 @@ Login with PHP using MongoDB as database.
 After the configuration, access the following URL at the browser: [http://localhost:8080/](http://localhost:8080/)
 
 ## Built with
-- [PHP 7.4](https://www.php.net/)
+- [PHP 8.1](https://www.php.net/)
 	- [coffeecode/router](https://packagist.org/packages/coffeecode/router)
 	- [twig/twig](https://packagist.org/packages/twig/twig)
-	- [twig/intl-extra](https://packagist.org/packages/twig/intl-extra)
 	- [mongodb/mongodb](https://packagist.org/packages/mongodb/mongodb)
 	- [phpmailer/phpmailer](https://packagist.org/packages/phpmailer/phpmailer)
 - [MongoDB](https://www.mongodb.com/)
