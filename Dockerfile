@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.1.8-apache
 
 # Installing mongodb extension for PHP
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
