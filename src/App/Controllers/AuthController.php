@@ -48,13 +48,13 @@ class AuthController extends Controller {
 
       $userNotFound = empty($user);
       if ($userNotFound) {
-        $_SESSION['error_message'] = AccountErrors::ACCOUNT_NOT_FOUND;
+        $_SESSION['error_message'] = AccountErrors::LOGIN_ERROR;
         redirectTo(BASE_URL . 'login');
       }
 
       $isThePasswordIncorrect = !password_verify($password, $user['password']);
       if ($isThePasswordIncorrect) {
-        $_SESSION['error_message'] = AccountErrors::INCORRECT_PASSWORD;
+        $_SESSION['error_message'] = AccountErrors::LOGIN_ERROR;
         redirectTo(BASE_URL . 'login');
       }
 

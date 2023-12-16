@@ -7,7 +7,6 @@ use App\Models\User;
 
 class UsersController extends Controller {
   public function index() {
-
     $userId = $_SESSION['user_id'] ?? null;
 
     if (!$userId) {
