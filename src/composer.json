@@ -8,7 +8,8 @@
       "App\\Controllers\\": "App/Controllers/",
       "App\\Core\\": "App/Core/",
       "App\\Validators\\": "App/Validators/",
-      "App\\Providers\\": "Providers/"
+      "App\\Providers\\": "Providers/",
+      "App\\Errors\\": "App/Errors"
     },
     "files": [
       "utils/redirectTo.php",
@@ -18,10 +19,9 @@
     ]
   },
   "require": {
-    "coffeecode/router": "^1.0",
-    "twig/twig": "^3.0",
-    "twig/intl-extra": "^3.0",
-    "mongodb/mongodb": "^1.6",
-    "phpmailer/phpmailer": "^6.1"
+    "coffeecode/router": "^2.0",
+    "twig/twig": "^3.8",
+    "mongodb/mongodb": "^1.17",
+    "phpmailer/phpmailer": "^6.9"
   }
 }
