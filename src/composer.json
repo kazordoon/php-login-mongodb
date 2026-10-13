@@ -21,7 +21,7 @@
   "require": {
     "coffeecode/router": "^2.0",
     "twig/twig": "^3.8",
-    "mongodb/mongodb": "^1.17",
+    "mongodb/mongodb": "^2.5",
     "phpmailer/phpmailer": "^6.9"
   }
 }
